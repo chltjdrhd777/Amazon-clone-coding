@@ -13,12 +13,13 @@
     "@types/react": "^16.9.46",
     "@types/react-dom": "^16.9.8",
     "@types/styled-components": "^5.1.2",
+    "a11y-react-emoji": "^1.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "styled-components": "^5.1.1",
-    "typescript": "^3.7.5"
+    "typescript": "^4.0.0-beta"
   },
   "scripts": {
     "start": "react-scripts start",

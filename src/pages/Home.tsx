@@ -4,6 +4,7 @@ import styled from "styled-components/macro";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import Product from "../components/Product";
+import { productInfo } from "../server/productInformation";
 
 function Home() {
   ///! I tried to realize infinite banner carousel with useState
@@ -47,9 +48,18 @@ function Home() {
         <NextBtnDiv onClick={moveForw}>
           <ArrowForwardIosIcon />
         </NextBtnDiv>
-
-        <Product title="hey" />
       </BannderDiv>
+      <ProductsDiv>
+        {productInfo.map((e) => (
+          <Product
+            title={e.title}
+            price={e.price}
+            rating={Math.floor(e.rating!)}
+            imageUrl={e.imageUrl}
+            key={e.id}
+          />
+        ))}
+      </ProductsDiv>
     </>
   );
 }
@@ -76,6 +86,8 @@ const BannderDiv = styled.div`
   max-width: 1500px;
   margin-left: auto;
   margin-right: auto;
+  /*  z-index: -1; */
+  margin-bottom: -150px;
   & img {
     width: 100%;
     mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
@@ -88,4 +100,7 @@ const BannderDiv = styled.div`
   }
 `;
 
+const ProductsDiv = styled.div`
+  display: flex;
+`;
 export default Home;
