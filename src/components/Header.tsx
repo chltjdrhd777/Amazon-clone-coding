@@ -3,8 +3,13 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
+import { useSelector } from "react-redux";
+import { CombineState } from "../redux/combinedStore";
 
 function Header() {
+  const headerLooker = useSelector((state: CombineState) => state.homeReducer);
+  const { basket } = headerLooker;
+
   return (
     <HeaderNav>
       <Link to="/home">
@@ -27,7 +32,9 @@ function Header() {
         <Link to="/checkout" className="navContents__Link">
           <ShoppingDiv className="baskitIcon_Div">
             <ShoppingBasketIcon />
-            <span className="OptionDescription2 bascket_counter">0</span>
+            <span className="OptionDescription2 bascket_counter">
+              {basket.length}
+            </span>
           </ShoppingDiv>
         </Link>
       </NavContainerDiv>

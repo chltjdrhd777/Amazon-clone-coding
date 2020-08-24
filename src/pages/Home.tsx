@@ -19,7 +19,7 @@ function Home() {
     presentImg: imageStore[0],
     alt: "bannerImage",
   });
-  console.log(bannerImg.index);
+
   ////////////////? banner button function/////////////////////
   const movePrev = () => {
     if (bannerImg.index > 0) {
@@ -52,6 +52,7 @@ function Home() {
       <ProductsDiv>
         {productInfo.map((e) => (
           <Product
+            id={e.id}
             title={e.title}
             price={e.price}
             rating={Math.floor(e.rating!)}

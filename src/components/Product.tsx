@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import Emoju from "a11y-react-emoji";
+import { useSelector, useDispatch } from "react-redux";
+import { CombineState } from "../redux/combinedStore";
+import { actions } from "../redux/homeReducer";
 
 export interface ProductPropsType {
   id?: string;
@@ -11,6 +14,14 @@ export interface ProductPropsType {
 }
 
 function Product({ id, title, price, rating, imageUrl }: ProductPropsType) {
+  const productLooker = useSelector((state: CombineState) => state.homeReducer);
+  const { basket } = productLooker;
+  const distpatch = useDispatch();
+
+  const addProduct = () => {
+    distpatch(actions.addProduct({ id, title, price, rating, imageUrl }));
+  };
+
   return (
     <ContainerDiv>
       <ProductInfoDiv>
@@ -33,7 +44,7 @@ function Product({ id, title, price, rating, imageUrl }: ProductPropsType) {
       </ProductInfoDiv>
 
       <img src={imageUrl} alt="ProductImg" />
-      <AddCartBtn>Add to your cart</AddCartBtn>
+      <AddCartBtn onClick={addProduct}>Add to your cart</AddCartBtn>
     </ContainerDiv>
   );
 }
