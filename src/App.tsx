@@ -1,6 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import Home from "./pages/Home";
+import Checkout from "./components/CheckOut";
+
 import { Provider } from "react-redux";
 import { createStore } from "./redux/combinedStore";
 
@@ -12,7 +15,7 @@ function App() {
       <Switch>
         <Provider store={store}>
           <Route path="/home" component={Home} />
-          <Route path="/checkout" />
+          <Route path="/checkout" component={Checkout} />
           <Route path="/login" />
         </Provider>
       </Switch>
