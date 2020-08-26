@@ -3,6 +3,7 @@ import { ProductPropsType } from "./Product";
 import styled from "styled-components/macro";
 import { useDispatch } from "react-redux";
 import { actions } from "../redux/homeReducer";
+import { priceComma } from "../server/productInformation";
 
 function CheckOutList({ id, title, price, imageUrl }: ProductPropsType) {
   const distpatch = useDispatch();
@@ -20,7 +21,7 @@ function CheckOutList({ id, title, price, imageUrl }: ProductPropsType) {
       <ProductInfoDiv>
         <p>{title}</p>
         <OnlyForStylingDiv>
-          <div>KRW {price}</div>
+          <div>KRW {priceComma(price!)}</div>
           <DeleteBtn onClick={() => removeThis(id!)}>
             Remove this from your cart
           </DeleteBtn>

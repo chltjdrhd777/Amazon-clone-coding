@@ -4,6 +4,7 @@ import Header from "./Header";
 import { useSelector } from "react-redux";
 import { CombineState } from "../redux/combinedStore";
 import CheckOutList from "./CheckOutList";
+import TotalAmount from "./TotalAmount";
 
 function CheckOut() {
   const headerLooker = useSelector((state: CombineState) => state.homeReducer);
@@ -39,7 +40,11 @@ function CheckOut() {
             </ItemsDiv>
           )}
         </CheckOutContainer>
-        {basket.length > 0 && <div>hi</div>}
+        {basket.length > 0 && (
+          <TotalAmountDiv>
+            <TotalAmount />
+          </TotalAmountDiv>
+        )}
       </CheckOutBodyDiv>
     </>
   );
@@ -47,6 +52,9 @@ function CheckOut() {
 
 const CheckOutBodyDiv = styled.div`
   display: flex;
+  padding: 20px;
+  background-color: white;
+  height: max-content;
 `;
 
 const CheckOutContainer = styled.div`
@@ -67,5 +75,7 @@ const ItemsDiv = styled.div`
     border-bottom: 1px solid grey;
   }
 `;
+
+const TotalAmountDiv = styled.div``;
 
 export default CheckOut;

@@ -3,11 +3,12 @@ import styled from "styled-components";
 import Emoju from "a11y-react-emoji";
 import { useDispatch } from "react-redux";
 import { actions } from "../redux/homeReducer";
+import { priceComma } from "../server/productInformation";
 
 export interface ProductPropsType {
   id?: string;
   title?: string;
-  price?: string;
+  price?: number;
   rating?: number;
   imageUrl?: string;
 }
@@ -25,7 +26,7 @@ function Product({ id, title, price, rating, imageUrl }: ProductPropsType) {
         <p>{title}</p>
         <PriceP>
           <small>KRW</small>
-          <strong>{price}</strong>
+          <strong>{priceComma(price!)}</strong>
         </PriceP>
         <RatingDiv>
           {Array(rating)
