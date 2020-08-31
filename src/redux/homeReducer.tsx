@@ -3,27 +3,27 @@ import { ProductPropsType } from "../components/Product";
 
 export interface HomeState {
   basket: ProductPropsType[];
+  personalInfo: { email: string; password: string }[];
+}
+
+interface Account {
+  email: string;
+  password: string;
 }
 
 //? actions //
 
 const addProduct = createAction<ProductPropsType>("ADD_TO_BASCKET");
 const deleteFromCart = createAction<string>("DELETE_THIS_FROM_CART");
+const addAccount = createAction<Account>("ADD_ACCOUNT");
 
-export const actions = { addProduct, deleteFromCart };
+export const actions = { addProduct, deleteFromCart, addAccount };
 
 //? reducer //
-function serialGenerator() {
-  const serialMaterilas = Math.random().toString(16);
-  const randomSerials = `${serialMaterilas.substr(
-    2,
-    5
-  )}-${serialMaterilas.substr(2, 3)}-${serialMaterilas.substr(3, 5)}`;
-  return randomSerials;
-}
 export const homeReducer = createReducer<HomeState>(
   {
     basket: [],
+    personalInfo: [],
   }, //state structure
   {
     [addProduct.type]: (
@@ -37,6 +37,9 @@ export const homeReducer = createReducer<HomeState>(
       if (findIndex !== -1) {
         basket.splice(findIndex, 1);
       }
+    },
+    [addAccount.type]: ({ personalInfo }, action: PayloadAction<Account>) => {
+      personalInfo.push(action.payload);
     },
   }
 );

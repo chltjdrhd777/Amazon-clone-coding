@@ -1,8 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { CombineState } from "../redux/combinedStore";
+import { actions } from "../redux/homeReducer";
 
 function LogIn() {
+  const [personalInfo, setPersonalInfo] = useState({ email: "", password: "" });
+  const dispatch = useDispatch();
+  const homeLooker = useSelector((state: CombineState) => state.homeReducer);
+  const infoFinding = homeLooker.personalInfo.findIndex(
+    (el) =>
+      el.email === personalInfo.email && el.password === personalInfo.password
+  );
+  const goToHomepage = useHistory();
+
+  const signIn = (e: any) => {
+    e.preventDefault();
+    if (infoFinding !== -1) {
+      goToHomepage.push("/home");
+    }
+  };
+
+  const register = (e: any) => {
+    e.preventDefault();
+    if (infoFinding !== -1) {
+      console.log("your id and Info is already registered");
+    } else {
+      dispatch(actions.addAccount(personalInfo));
+    }
+  };
+
   return (
     <>
       <LoginDiv>
@@ -18,14 +47,34 @@ function LogIn() {
           <h1>Sign In</h1>
           <form>
             <h5>E-mail</h5>
-            <input type="text" />
+            <input
+              value={personalInfo.email}
+              onChange={(e) =>
+                setPersonalInfo({
+                  email: e.target.value,
+                  password: personalInfo.password,
+                })
+              }
+              type="email"
+            />
             <h5>Password</h5>
-            <input type="text" />
-            <button>Sign In</button>
+            <input
+              value={personalInfo.password}
+              onChange={(e) =>
+                setPersonalInfo({
+                  email: personalInfo.email,
+                  password: e.target.value,
+                })
+              }
+              type="password"
+            />
+            <SignIn onClick={signIn} type="submit">
+              Sign In
+            </SignIn>
           </form>
 
           <p>It is demo login page</p>
-          <button>Create your account now</button>
+          <Register onClick={register}>Create your account now</Register>
         </LoginContainer>
       </LoginDiv>
     </>
@@ -46,6 +95,9 @@ const LoginDiv = styled.div`
     padding: 10px;
   }
 `;
+
+const SignIn = styled.button``;
+const Register = styled.button``;
 
 const LoginContainer = styled.div`
   display: flex;
